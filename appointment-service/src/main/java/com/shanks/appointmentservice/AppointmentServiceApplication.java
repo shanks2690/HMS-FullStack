@@ -2,7 +2,6 @@ package com.shanks.appointmentservice;
 
 import com.shanks.appointmentservice.service.AppointmentServices;
 import com.shanks.appointmentservice.service.impl.AppointmentImpl;
-import org.shanks.App;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.openfeign.EnableFeignClients;

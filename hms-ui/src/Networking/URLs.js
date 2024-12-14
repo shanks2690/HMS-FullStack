@@ -5,3 +5,4 @@ export const allUsersURL = `${urlPrefix}/admin/allusers`;
 export const regAllReqsURL = `${urlPrefix}/admin/regpat`;
 export const getAllReqsURL = `${urlPrefix}/admin/regreq`;
 export const registerUserURL = `${urlPrefix}/admin/register`;
+export const orgURL = `${urlPrefix}/apnt/hmsorg`;

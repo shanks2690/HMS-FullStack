@@ -17,15 +17,15 @@ import EventIcon from '@mui/icons-material/Event';
 import { useNavigate } from 'react-router-dom';
 import './Css/Admin.css';
 import { PATHS } from '../Helpers/Paths';
-import Doctor from './Doctor';
 import UserCards from './Subs/UserCards';
 import RegistrationRequests from './Subs/RegistrationRequests';
 import RegisterUser from './Subs/RegisterUser';
+import DoctorInfo from './Subs/DoctorInfo';
 
 const menuItems = [
   { text: 'Dashboard', icon: <DashboardIcon />, content: <h3>Dashboard Content</h3> },
   { text: 'Registration Requests', icon: <PeopleIcon />, content: <RegistrationRequests /> },
-  { text: 'Doctors', icon: <LocalHospitalIcon />, content: <Doctor /> },
+  { text: 'Organisation', icon: <LocalHospitalIcon />, content: <DoctorInfo /> },
   { text: 'Users', icon: <EventIcon />, content: <UserCards /> },
   { text: 'Register User', icon: <PeopleIcon />, content: <RegisterUser /> }, // New page
 ];

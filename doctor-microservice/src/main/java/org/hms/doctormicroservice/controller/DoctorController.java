@@ -2,6 +2,7 @@ package org.hms.doctormicroservice.controller;
 
 
 import lombok.AllArgsConstructor;
+import org.hms.AppointmentRequest;
 import org.hms.doctormicroservice.dto.*;
 import org.hms.doctormicroservice.entity.DoctorInfo;
 import org.hms.doctormicroservice.feigncalls.AppointmentFeign;
@@ -9,7 +10,7 @@ import org.hms.doctormicroservice.feigncalls.PatientFeign;
 import org.hms.doctormicroservice.feigncalls.PrscFeign;
 import org.hms.doctormicroservice.kafka.Sender;
 import org.hms.doctormicroservice.service.impl.DocImpl;
-import org.shanks.AppointmentRequest;
+
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
@@ -26,9 +27,8 @@ public class DoctorController {
     AppointmentFeign appointmentFeign;
 
     PatientFeign patientFeign;
-PrscFeign prscFeign;
+    PrscFeign prscFeign;
     DocImpl docImpl;
-
     Sender sender;
 
     @GetMapping("appointments")

@@ -1,0 +1,17 @@
+.login-title{
+    justify-content: center;
+    display: flex;
+    margin-top: -100px;
+    font-size: 2rem; /* Large and prominent */
+    font-weight: bold; /* Strong emphasis */
+    text-align: center; /* Centered alignment */
+    color: #2c3e50; /* Sophisticated dark slate color */
+    margin-bottom: 20px; /* Space below the title */
+    font-family: 'Playfair Display', serif; /* Elegant serif font */
+    letter-spacing: 1px; /* Slight spacing for a refined look */
+    text-transform: capitalize; /* Ensures proper casing */
+    background: linear-gradient(to right, #6a11cb, #2575fc); /* Gradient background for text */
+    -webkit-background-clip: text; /* Clip background to text */
+    -webkit-text-fill-color: transparent; /* Makes text transparent to show gradient */
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2); /* Adds depth */
+}

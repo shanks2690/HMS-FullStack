@@ -1,0 +1,111 @@
+/* Registration Requests Container */
+.registration-container {
+  padding: 24px;
+  background-color: #f9f9f9; /* Light background for the table */
+  border-radius: 8px;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+}
+
+/* Typography */
+.registration-title {
+  color: #5a473a; /* Rich brown */
+  font-family: 'Roboto', sans-serif; /* Professional font */
+  font-weight: 600;
+  margin-bottom: 16px;
+}
+
+/* Table Styles */
+.registration-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.registration-table th {
+  background-color: #5a473a; /* Deep brown header background */
+  color: #ffffff; /* White text */
+  padding: 12px;
+  font-weight: bold;
+  text-align: left;
+}
+
+.registration-table td {
+  padding: 12px;
+  font-size: 14px;
+  color: #333; /* Dark gray text */
+}
+
+.registration-table tr:nth-child(odd) {
+  background-color: #f3efe5; /* Alternate row background */
+}
+
+.registration-table tr:nth-child(even) {
+  background-color: #ffffff; /* White background */
+}
+
+.registration-table tr:hover {
+  background-color: #e8e4db; /* Light beige hover effect */
+}
+
+/* Action Buttons */
+.action-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 8px; /* Spacing between buttons */
+}
+
+.action-buttons .approve-btn {
+  background-color: #4caf50; /* Green for Approve */
+  color: #ffffff;
+  font-weight: 500;
+  padding: 4px 12px;
+  border-radius: 4px;
+  transition: all 0.3s ease;
+}
+
+.action-buttons .approve-btn:hover {
+  background-color: #45a045; /* Darker green hover */
+}
+
+.action-buttons .reject-btn {
+  background-color: #f44336; /* Red for Reject */
+  color: #ffffff;
+  font-weight: 500;
+  padding: 4px 12px;
+  border-radius: 4px;
+  transition: all 0.3s ease;
+}
+
+.action-buttons .reject-btn:hover {
+  background-color: #d32f2f; /* Darker red hover */
+}
+
+/* Loader */
+.loader-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+}
+
+
+/* Approve All Button */
+.approve-all-btn {
+  background-color: #4caf50; /* Green for approve all */
+  color: #ffffff;
+  font-weight: 600;
+  text-transform: none;
+  padding: 6px 16px;
+  border-radius: 8px;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.approve-all-btn:hover {
+  background-color: #45a045; /* Darker green hover */
+  transform: scale(1.05); /* Slight zoom on hover */
+}
+
+.approve-all-btn:disabled {
+  background-color: #b0b0b0; /* Disabled gray */
+  color: #f5f5f5;
+  cursor: not-allowed;
+}

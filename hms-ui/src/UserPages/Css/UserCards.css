@@ -1,0 +1,37 @@
+/* Role Tabs */
+.MuiTabs-root {
+    background-color: #1f1f1f; /* Dark gray background */
+    border-radius: 8px;
+    padding: 8px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.4); /* Subtle shadow */
+  }
+  
+  .MuiTab-root {
+    color: #b0bec5; /* Light gray text */
+    font-weight: 600;
+    text-transform: none;
+    transition: all 0.3s ease;
+  }
+  
+  .MuiTab-root.Mui-selected {
+    color: #64b5f6; /* Light blue for active tab */
+  }
+  
+  .MuiTabs-indicator {
+    background-color: #64b5f6; /* Match active tab color */
+  }
+  
+  /* User Cards */
+  .user-card {
+    background-color: #1f1f1f; /* Dark gray background */
+    color: #e0e0e0; /* Light text */
+    border-radius: 12px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.4); /* Subtle shadow */
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+  
+  .user-card:hover {
+    transform: translateY(-5px); /* Slight lift on hover */
+    box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.6); /* Enhanced shadow */
+  }
+  

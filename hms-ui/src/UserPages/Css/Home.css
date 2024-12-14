@@ -1,0 +1,87 @@
+/* Root container for full height */
+.rootClass {
+    height: 100vh; /* Full viewport height */
+    display: flex;
+    flex-direction: column;
+  }
+  
+  /* Heading Section */
+  .heading {
+    font-size: 2.5rem; /* Scales well across devices (adjusts to 40px) */
+      text-align: center; /* Center alignment for focus */
+      font-weight: 700; /* Bolder weight for emphasis */
+      color: #2c3e50; /* Dark sophisticated color */
+      font-family: 'Roboto', 'Arial', sans-serif; /* Clean, professional fonts */
+      letter-spacing: 1px; /* Slight spacing for readability */
+      text-transform: capitalize; /* Ensures proper casing */
+      line-height: 1.4; /* Spacing between lines for readability */
+      text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.2); /* Subtle shadow for depth */
+      background: linear-gradient(90deg, #6a11cb, #2575fc);
+      -webkit-text-fill-color: rgb(197, 168, 82);
+      padding: 10px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 10%; /* Fixed height for the heading */
+  
+    .ima-icon, .hms-icon{
+      height: 100%; /* Match the div height */
+      aspect-ratio: 1; /* Maintain square aspect ratio */
+      margin-right: 15px; /* Space between the icon and text */
+      object-fit: contain; 
+      justify-content: left;/* Ensure the icon fits within its box */
+      margin-right:2%;
+    }
+    .hms-icon{
+      height:200%;
+      margin-top: 0.4%;
+    }
+  }
+  
+  /* App container for full height below heading */
+  .App {
+    flex: 1;
+    display: flex;
+  }
+  
+  /* Left Column */
+  .col-sm-4 {
+    background-color: #f8f9fa; /* Optional: Light background */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  
+    background: linear-gradient(135deg, #e8f0fe, #ffffff); /* Soft gradient background */
+      border-radius: 10px; /* Rounded corners for the column */
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+      padding: 20px; /* Adds spacing inside the column */
+      text-align: center; /* Center the text within the column */
+      display: flex; /* Flexbox to align content */
+      flex-direction: column; /* Vertical stacking */
+      justify-content: center; /* Vertically center content */
+      align-items: center; /* Horizontally center content */
+      /* min-height: 150px; Ensures a consistent height for the column */
+  }
+  
+  /* Right Column */
+  .col-sm-8 {
+    img{
+      width: 100%; /* Full width */
+      height: 100%; /* Full height */
+      object-fit: cover; /* Ensures the image fills the space without distortion */
+      border-radius: 6px; 
+      box-shadow: 0 12px 40px rgba(27, 34, 46, 0.413); /* Deep shadow for a premium feel */
+      filter: brightness(0.95) contrast(1.1) saturate(1.2); /* Boost vibrancy and clarity */
+      transition: transform 0.5s ease, filter 0.5s ease, box-shadow 0.5s ease; 
+    }
+   
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #ffffff; /* Optional: White background */
+  }
+  
+  
+  
+  

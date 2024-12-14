@@ -48,7 +48,7 @@ export const Admin = () => {
         <Toolbar>
           {/* Center Title */}
           <Typography variant="h4" className="app-title">
-            Hospital Management System
+            Hospital Management System - ADMIN
           </Typography>
           {/* Logout Button */}
           <Button

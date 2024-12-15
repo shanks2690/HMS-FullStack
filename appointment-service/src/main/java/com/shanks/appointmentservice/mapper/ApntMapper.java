@@ -43,7 +43,7 @@ public class ApntMapper {
         apnt.setBranchCode(dto.getBranchCode());
         apnt.setSlotFrom(dto.getSlotFrom());
         apnt.setSlotTo(dto.getSlotTo());
-        apnt.setIsAvaiable(dto.getIsAvaiable());
+        apnt.setIsAvaiable(true);
         apnt.setDate(dto.getDate());
         apnt.setDocId(dto.getDocId());
         apnt.setDocFname(dto.getDocFname());

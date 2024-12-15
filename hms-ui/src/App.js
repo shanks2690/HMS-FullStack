@@ -5,7 +5,8 @@ import { Home } from './UserPages/Home';
 import { createBrowserRouter, Navigate, RouterProvider, useLocation } from 'react-router-dom';
 import { PATHS } from './Helpers/Paths';
 import { Admin } from './UserPages/Admin';
-import Doctor from './UserPages/Doctor';
+import { Doctor } from './UserPages/Doctor';
+
 
 
 const ProtectedRoute = ({ children, allowedType }) => {
@@ -22,6 +23,7 @@ const ProtectedRoute = ({ children, allowedType }) => {
 };
 
 const App = () => {
+
   const routes = createBrowserRouter([
     {
       path: '/',

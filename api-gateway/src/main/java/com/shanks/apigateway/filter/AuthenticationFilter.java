@@ -60,7 +60,7 @@ public class AuthenticationFilter extends AbstractGatewayFilterFactory<Authentic
 
 
   request =exchange.getRequest().mutate().header("loggedInUser", jwtUtil.extractUsername(token)).build();
-
+log.info(request.getHeaders());
                 } catch (Exception e) {
                     System.out.println("invalid access...!");
                     throw new RuntimeException("un authorized access to application");

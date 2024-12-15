@@ -20,12 +20,12 @@ import { PATHS } from '../Helpers/Paths';
 import UserCards from './Subs/UserCards';
 import RegistrationRequests from './Subs/RegistrationRequests';
 import RegisterUser from './Subs/RegisterUser';
-import DoctorInfo from './Subs/DoctorInfo';
+import OrgStructure from './Subs/OrgStructure';
 
 const menuItems = [
   { text: 'Dashboard', icon: <DashboardIcon />, content: <h3>Dashboard Content</h3> },
   { text: 'Registration Requests', icon: <PeopleIcon />, content: <RegistrationRequests /> },
-  { text: 'Organisation', icon: <LocalHospitalIcon />, content: <DoctorInfo /> },
+  { text: 'Organisation', icon: <LocalHospitalIcon />, content: <OrgStructure /> },
   { text: 'Users', icon: <EventIcon />, content: <UserCards /> },
   { text: 'Register User', icon: <PeopleIcon />, content: <RegisterUser /> }, // New page
 ];

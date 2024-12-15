@@ -20,6 +20,7 @@ SlotRepository slotRepo;
     @Override
     public AppointmentSlot addSlot(AppointmentSlot slot) {
         try{
+            System.out.println("At appointment side "+ slot);
             return slotRepo.save(slot);
         } catch (Exception e) {
             throw new RuntimeException(e);

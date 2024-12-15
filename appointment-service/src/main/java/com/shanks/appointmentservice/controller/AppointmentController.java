@@ -41,8 +41,6 @@ public class AppointmentController {
 
     @GetMapping("departments")
     public ResponseEntity<Department[]> showDeparments() {
-//        System.out.println(email);
-
         return ResponseEntity.ok(Department.values());
     }
 

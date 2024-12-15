@@ -7,3 +7,18 @@ export const BRANCHES = {
     "H4":"Lucknow",
     "H5":"Dehradun"
 }
+export const DEPARTMENTS = [
+    "GYNAECOLOGY",
+    "PAEDIATRICS",
+    "NEUROLOGY",
+    "DERMATOLOGY",
+    "DENTAL",
+    "ENT",
+    "PHYSIOTHERAPY",
+    "GASTROENTEROLOGY",
+    "MEDICINE",
+    "CARDIOLOGY"
+];
+
+
+    

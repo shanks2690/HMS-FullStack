@@ -89,7 +89,7 @@ public class DoctorController {
         return ResponseEntity.ok(docImpl.delDoc(email));
     }
 
-    @PutMapping("updateinfo")
+    @PostMapping("updateinfo")
     public ResponseEntity<?> updateMyInfo(@RequestBody DoctorInfo doctorInfo, @RequestHeader("loggedInUser") String email) {
         return ResponseEntity.ok(docImpl.updateInfo(doctorInfo, email));
     }
@@ -126,7 +126,7 @@ public class DoctorController {
         slot.setDocId(doc.getDocId());
         slot.setDocLname(doc.getLastName());
         slot.setDocFname(doc.getFirstName());
-
+        System.out.println("Slot info "+ slot);
         return ResponseEntity.ok(appointmentFeign.addSlot(slot).getBody());
     }
 
@@ -142,7 +142,7 @@ public class DoctorController {
     public ResponseEntity<String> delSlot(@RequestBody String slotId) {
         System.out.println(slotId);
         Long id = Long.parseLong(slotId);
-        return (ResponseEntity<String>) appointmentFeign.delSlot(id);
+        return  appointmentFeign.delSlot(id);
     }
 
     @PostMapping("reject")

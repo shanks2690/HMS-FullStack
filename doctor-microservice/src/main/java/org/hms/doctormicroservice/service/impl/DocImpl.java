@@ -52,7 +52,7 @@ DoctorRepository doctorRepository;
            newDoctor.setQualification(updatedInfo.getQualification() == null ? newDoctor.getQualification() : updatedInfo.getQualification());
            newDoctor.setDateOfSpl(updatedInfo.getDateOfSpl() == null ? newDoctor.getDateOfSpl() : updatedInfo.getDateOfSpl());
            newDoctor.setRegNo(updatedInfo.getRegNo() == null ? newDoctor.getRegNo() : updatedInfo.getRegNo());
-           newDoctor.setAvailability(true);
+           newDoctor.setAvailability(updatedInfo.getAvailability());
            doctorRepository.save(newDoctor);
            return newDoctor;
        } catch (Exception e) {

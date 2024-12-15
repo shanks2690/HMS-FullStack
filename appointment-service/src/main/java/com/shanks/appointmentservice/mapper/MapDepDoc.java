@@ -10,11 +10,9 @@ import java.util.*;
 public class MapDepDoc {
 
     public static Map<BranchCode,Map<Department, List<DocDepDto>>> depMapDoc(List<DocDepDto> docs) {
-        System.out.println("I have come here with "+ docs);
         Map<BranchCode,Map<Department, List<DocDepDto>>> bigMap = new HashMap<>();
         Set<BranchCode> bSet = new HashSet<>();
         docs.forEach(x->bSet.add(x.getBranchCode()));
-        System.out.println(docs);
         List<DocDepDto> temp;
         for(BranchCode bCode:bSet)
         {

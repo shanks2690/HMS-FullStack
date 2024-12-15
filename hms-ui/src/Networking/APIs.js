@@ -1,8 +1,14 @@
-import { GetCall, PostCall, PostCallNoPayload } from "./Calls";
-import { allUsersURL, authURL, getAllReqsURL, orgURL, regAllReqsURL, registerUserURL } from "./URLs";
+import { DeleteCallWithPayload, GetCall, PostCall, PostCallNoPayload, PostCallWithPayload } from "./Calls";
+import { addSlotsURL, allUsersURL, authURL, deleteSlotURL, getAllReqsURL, getDocInfoURL, mySlotsURL, orgURL, regAllReqsURL, registerUserURL, saveDocInfoURL } from "./URLs";
 export const LoginCall = (payload)=>PostCall(authURL,payload);
 export const GetAllUsers = () => GetCall(allUsersURL,sessionStorage.getItem('jwt'));
 export const GetRegistrationRequests = () => GetCall(getAllReqsURL,sessionStorage.getItem('jwt'));
 export const RegAllRequests = () => PostCallNoPayload(regAllReqsURL,sessionStorage.getItem('jwt'));
 export const RegisterNewUser = (payload) => PostCall(registerUserURL,payload);
 export const Organisation = () => GetCall(orgURL,sessionStorage.getItem('jwt'));
+export const GetDocInfo = () => GetCall(getDocInfoURL,sessionStorage.getItem('jwt'));
+export const SaveDocInfo = (payload) => PostCallWithPayload(saveDocInfoURL,sessionStorage.getItem('jwt'),payload);
+export const addSlots = (payload) => PostCallWithPayload(addSlotsURL,sessionStorage.getItem('jwt'),payload);
+export const GetMySlots = () => GetCall(mySlotsURL,sessionStorage.getItem('jwt'));
+export const UpdateSlot = (payload) => PostCallWithPayload(addSlotsURL,sessionStorage.getItem('jwt'),payload);
+export const DeleteSlot = (payload) => DeleteCallWithPayload(deleteSlotURL,sessionStorage.getItem('jwt'),payload);

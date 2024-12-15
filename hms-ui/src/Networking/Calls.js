@@ -14,8 +14,7 @@ export const PostCall =async (URL,payload)=> {
 };
 
  export const PostCallNoPayload =async (URL,auth)=> {
-    console.log("with " , URL, auth );
-    
+
     return await fetch(URL,{
      method: 'POST', // Specify POST method
      headers: {
@@ -26,6 +25,34 @@ export const PostCall =async (URL,payload)=> {
  });
  };
 
+
+ export const PostCallWithPayload =async (URL,auth,payload)=> {
+console.log("In correct place");
+
+  return await fetch(URL,{
+   method: 'POST', // Specify POST method
+   headers: {
+      'Authorization':auth,
+       'Content-Type': 'application/json', // Specify the content type
+   },
+   body: JSON.stringify(payload),
+   mode:'cors' // Convert data to JSON string
+});
+};
+
+export const DeleteCallWithPayload =async (URL,auth,payload)=> {
+console.log("Deleting ", payload);
+
+    return await fetch(URL,{
+     method: 'DELETE', // Specify POST method
+     headers: {
+        'Authorization':auth,
+         'Content-Type': 'application/json', // Specify the content type
+     },
+     body: JSON.stringify(payload),
+     mode:'cors' // Convert data to JSON string
+  });
+  };
 export const GetCall =async (URL,auth)=> {
 
     

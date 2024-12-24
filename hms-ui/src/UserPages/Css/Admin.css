@@ -1,0 +1,164 @@
+/* Admin Layout */
+.admin-layout {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    background-color: #f3efe5; /* Soft beige background */
+  }
+  
+  /* Top Bar */
+  .top-bar {
+    flex: 0 0 64px; /* Fixed height for the top bar */
+  }
+  
+  .admin-appbar {
+    background: linear-gradient(90deg, #5a473a, #7c6b5a); /* Rich brown gradient */
+    color: #ffffff; /* White text */
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.3); /* Subtle shadow */
+    transition: all 0.3s ease;
+  }
+  
+  .logout-button {
+    background-color: #a67c52; /* Muted gold */
+    color: white;
+    font-weight: 600;
+    text-transform: none;
+    padding: 6px 12px;
+    border-radius: 8px;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+  }
+  
+  .logout-button:hover {
+    background-color: #8b6c42; /* Deeper muted gold */
+    transform: scale(1.05); /* Slight zoom on hover */
+  }
+  
+  /* Toolbar Styling */
+  .admin-toolbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .user-name {
+    color: #d9d2c7; /* Light beige */
+    font-weight: 500;
+    margin-left: 16px;
+    font-size: 16px;
+  }
+  
+  .app-title {
+    flex-grow: 1;
+    text-align: center;
+    color: #ffffff; /* White text */
+    font-family: 'Roboto Slab', serif; /* Elegant serif font */
+    font-weight: bold;
+    font-size: 22px;
+    letter-spacing: 1px;
+  }
+  
+  /* Bottom Row */
+  .bottom-row {
+    flex: 1;
+    display: flex;
+    background-color: #f3efe5; /* Soft beige */
+  }
+  
+  /* Sidebar */
+  .sidebar {
+    flex: 0 0 240px; /* Fixed width for the sidebar */
+    background-color: #5a473a; /* Deep brown */
+    border-right: 1px solid #7c6b5a; /* Subtle divider */
+    box-shadow: 2px 0px 8px rgba(0, 0, 0, 0.2); /* Soft shadow */
+    display: flex;
+    flex-direction: column;
+    padding: 0;
+    transition: all 0.3s ease;
+  }
+  
+  /* Sidebar Header: User Name */
+  .sidebar-header {
+    background-color: #7c6b5a; /* Slightly lighter brown */
+    color: #ffffff; /* White text */
+    text-align: center;
+    padding: 16px;
+    font-size: 16px;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    border-bottom: 1px solid #6b5b4b; /* Subtle border */
+  }
+  
+  /* Sidebar Menu Items */
+  .menu-item {
+    padding: 12px 16px;
+    font-size: 16px;
+    color: #d9d2c7; /* Light beige text */
+    border-radius: 8px;
+    transition: all 0.3s ease;
+  }
+  
+  .menu-item:hover {
+    background-color: #7c6b5a; /* Lighter brown hover effect */
+    color: #a67c52; /* Muted gold hover text */
+    transform: translateX(5px); /* Slight move to the right on hover */
+    box-shadow: inset 0px 0px 10px rgba(0, 0, 0, 0.1); /* Subtle inset shadow */
+  }
+  
+  .menu-item.active {
+    background-color: #a67c52; /* Muted gold active background */
+    color: #ffffff; /* White active text */
+    box-shadow: 0px 4px 8px rgba(166, 124, 82, 0.4); /* Soft glow effect for active */
+  }
+  
+  .menu-icon {
+    color: inherit;
+    transition: transform 0.2s ease;
+  }
+  
+  .menu-item:hover .menu-icon {
+    transform: scale(1.1); /* Slight zoom for icon on hover */
+  }
+  
+  /* Content Area */
+  .content-area {
+    flex: 1;
+    padding: 24px;
+    overflow-y: auto;
+    background-color: #f3efe5; /* Soft beige */
+    transition: all 0.3s ease;
+  }
+  
+  .content-container {
+    background-color: #ffffff; /* Clean white container */
+    padding: 24px;
+    border-radius: 12px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+    color: #5a473a; /* Rich brown text */
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+  
+  .content-container:hover {
+    transform: translateY(-5px); /* Slight lift on hover */
+    box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2); /* Enhanced shadow */
+  }
+  
+  .content-container h3 {
+    color: #a67c52; /* Muted gold for headings */
+    font-size: 24px;
+    margin-bottom: 16px;
+  }
+  
+  /* Scrollbar Styling */
+  .content-area::-webkit-scrollbar {
+    width: 8px;
+  }
+  
+  .content-area::-webkit-scrollbar-thumb {
+    background: #a67c52; /* Muted gold thumb */
+    border-radius: 4px;
+  }
+  
+  .content-area::-webkit-scrollbar-thumb:hover {
+    background: #8b6c42; /* Deeper muted gold */
+  }
+  

@@ -25,26 +25,9 @@ const ProtectedRoute = ({ children, allowedType }) => {
 const App = () => {
 
   const routes = createBrowserRouter([
-    {
-      path: '/',
-      element: <div className='main-container'><Home /></div>, 
-    },
-    {
-      path: PATHS.ADMIN_PATH,
-      element: (
-        <ProtectedRoute allowedType="ADMIN">
-          <Admin />
-        </ProtectedRoute>
-      ),
-    },
-    {
-      path: PATHS.DOCTOR_PATH,
-      element: (
-        <ProtectedRoute allowedType="DOCTOR">
-          <Doctor />
-        </ProtectedRoute>
-      ),
-    },
+    {path: '/', element: <div className='main-container'><Home /></div>},
+    {path: PATHS.ADMIN_PATH, element: (<ProtectedRoute allowedType="ADMIN"><Admin /></ProtectedRoute>)},
+    {path: PATHS.DOCTOR_PATH, element: (<ProtectedRoute allowedType="DOCTOR"><Doctor /></ProtectedRoute>)},
   ]);
 
   return <RouterProvider router={routes} />;

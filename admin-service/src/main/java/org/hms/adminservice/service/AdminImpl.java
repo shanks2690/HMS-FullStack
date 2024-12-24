@@ -6,6 +6,7 @@ import org.hms.adminservice.dto.RegistrationCredentials;
 import org.hms.adminservice.feigncalls.GuardFeign;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.RequestHeader;
 
 import java.util.List;
 
@@ -32,18 +33,8 @@ return guardFeign.delAccount(userName);
     }
 
     @Override
-    public ResponseEntity<List<CredentialsDto>> getAllUsers() {
-        return guardFeign.fetchAll();
+    public ResponseEntity<List<CredentialsDto>> getAllUsers(String authHeader) {
+        return guardFeign.fetchAll(authHeader);
     }
-
-//    @Override
-//    public ResponseEntity<CredentialsDto> getUser(String email) {
-//       try{
-//           return ResponseEntity.ok(guardFeign.getUser(email));
-//       } catch (Exception e) {
-//           throw new RuntimeException(e);
-//       }
-//    }
-
 
 }

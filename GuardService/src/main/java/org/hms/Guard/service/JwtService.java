@@ -4,12 +4,16 @@ import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.security.Keys;
+import jakarta.servlet.http.HttpServletResponse;
+import org.bson.codecs.DateCodec;
 import org.hms.Guard.entity.Role;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
 import java.security.Key;
+import java.time.LocalDate;
 import java.util.Base64;
 import java.util.Date;
 import java.util.HashMap;
@@ -20,6 +24,7 @@ import java.util.function.Function;
 public class JwtService {
     @Value("${secrets.jwt-secret-key}")
     private String SECRET_KEY;
+
     public String extractUsername(String token) {
         return extractClaim(token, Claims::getSubject);
     }
@@ -46,12 +51,18 @@ public class JwtService {
 
     /// claim checking completed
     public String generateToken(UserDetails userDetails, Role role) {
-        return generateToken(new HashMap<>(), userDetails, role);
+        Map<String, Object> claims = new HashMap<>();
+        claims.put("user", userDetails.getUsername());
+        claims.put("role", role);
+        return generateToken(claims, userDetails, role);
     }
 
     public String generateToken(Map<String, Object> extraClaims, UserDetails userDetails, Role role) {
         return Jwts
                 .builder()
+                .setIssuer("HMS Guard Service")
+                .setIssuedAt(new Date())
+                .setAudience("HMS Services")
                 .setClaims(extraClaims)
                 .claim("Role", role.toString())
                 .setSubject(userDetails.getUsername())

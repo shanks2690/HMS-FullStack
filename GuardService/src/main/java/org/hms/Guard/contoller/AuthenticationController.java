@@ -3,17 +3,22 @@ package org.hms.Guard.contoller;
 
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.hms.Guard.auth.*;
 import org.hms.Guard.dto.CredentialsDto;
 import org.hms.Guard.dto.PasswordChange;
 import org.hms.Guard.service.AuthenticationService;
 import org.hms.Guard.service.CRUDService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.ResponseCookie;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.Duration;
 import java.util.List;
 
+@Slf4j
 @RestController
 @RequestMapping("guard")
 @RequiredArgsConstructor
@@ -31,11 +36,14 @@ public class AuthenticationController {
 
     @PostMapping("authenticate")  //common entry point
     public ResponseEntity<?> authenticate(@RequestBody Credentials request) {
-        return ResponseEntity.ok(service.authenticate(request));
+        var authObject = service.authenticate(request);
+        return ResponseEntity.ok().body(authObject);
+
     }
 
     @GetMapping("allusers") // access with admin
-    public ResponseEntity<List<CredentialsDto>> fetchAll() {
+    public ResponseEntity<List<CredentialsDto>> fetchAll(@RequestHeader HttpHeaders headers) {
+        log.info("Entered here {}", headers.get("Authorization"));
         return ResponseEntity.ok(crudService.fetchAll());
     }
 

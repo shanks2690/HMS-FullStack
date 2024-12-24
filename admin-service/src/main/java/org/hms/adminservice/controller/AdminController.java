@@ -10,6 +10,7 @@ import org.hms.adminservice.repository.RegRepository;
 import org.hms.adminservice.service.AdminImpl;
 import org.hms.adminservice.transferservices.ConsistencyTfr;
 import org.springframework.http.ResponseEntity;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 import java.security.Guard;
@@ -46,8 +47,9 @@ public class AdminController {
     }
 
     @GetMapping("allusers")
-    public ResponseEntity<List<CredentialsDto>> getAllUsers() {
-        return admin.getAllUsers();
+    public ResponseEntity<List<CredentialsDto>> getAllUsers(@RequestHeader("Authorization") String authorization) {
+        log.info("Auth {}", authorization);
+        return admin.getAllUsers(authorization);
     }
 
     @PostMapping("user")

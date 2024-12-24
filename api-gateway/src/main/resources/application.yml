@@ -81,6 +81,8 @@ spring:
           uri: lb://GUARD
           predicates:
             - Path=/guard/**
+          filters:
+            - AuthenticationFilter
 
       globalcors:
         corsConfigurations:

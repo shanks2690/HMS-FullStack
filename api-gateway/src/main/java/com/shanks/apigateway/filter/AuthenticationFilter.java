@@ -83,7 +83,7 @@ log.info(request.getHeaders());
         String room = "^/room(?:/[\\w\\d]+)?$";
 
         if(role.equals("ADMIN"))
-            return Pattern.matches(admin,path)||Pattern.matches(mail,path)||Pattern.matches(apnt,path)||Pattern.matches("/guard/changepwd",path);
+            return Pattern.matches(admin,path)||Pattern.matches(mail,path)||Pattern.matches(apnt,path)||Pattern.matches("/guard/.*",path);
         if(role.equals("DOCTOR"))
             return Pattern.matches(doc,path)||Pattern.matches(mail,path)||Pattern.matches(apnt,path)||Pattern.matches(prsc,path)||Pattern.matches("^/pharma/allmed",path)||Pattern.matches("/guard/changepwd",path);
         if(role.equals("PATIENT"))

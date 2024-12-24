@@ -14,7 +14,7 @@ public interface GuardFeign {
      ResponseEntity<CredentialsDto> register( RegistrationCredentials request );
 
     @GetMapping("guard/allusers") // access with admin
-     ResponseEntity<List<CredentialsDto>> fetchAll();
+     ResponseEntity<List<CredentialsDto>> fetchAll(@RequestHeader("Authorization") String authorization);
 
 
     @DeleteMapping("guard/del")   // access with admin

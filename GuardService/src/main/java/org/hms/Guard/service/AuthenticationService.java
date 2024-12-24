@@ -1,5 +1,6 @@
 package org.hms.Guard.service;
 
+import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.hms.CredToken;
@@ -19,24 +20,31 @@ import org.hms.Guard.kafka.Sender;
 import org.hms.Guard.mapper.UserMapper;
 import org.hms.Guard.repository.UserRepository;
 import org.hms.Guard.service.JwtService;
+import org.springframework.context.annotation.Bean;
+import org.springframework.lang.NonNull;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.AuthenticationProvider;
+import org.springframework.security.authentication.ProviderManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.stereotype.Service;
 
 
 @Service
 @Log4j2
 @RequiredArgsConstructor
-public class AuthenticationService {
+public class AuthenticationService  {
     private final Sender sender;
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
     private final JwtService jwtService;
     private final AuthenticationManager authenticationManager;
     private final MailFeign mailFeign;
-
+    private final HttpServletResponse response;
     public CredentialsDto register(RegistrationCredentials request) {
         User user = User.builder()
                 .firstName(request.getFirstname())
@@ -54,7 +62,6 @@ public class AuthenticationService {
     log.info(request);
         userRepository.save(user);
         sendToken(request);
-        String jwtToken = jwtService.generateToken(user, user.getRole());
         try {
             try {
                 mailFeign.sendMail(composeMail(request));
@@ -96,28 +103,22 @@ public class AuthenticationService {
         log.info(mail);
         return mail;
     }
-
     public GeneratedToken authenticate(Credentials request) {
         log.info(request.getEmail());
         log.info(request.getPassword());
+        Authentication auth;
         try {
-            authenticationManager.authenticate( new UsernamePasswordAuthenticationToken(request.getEmail(), request.getPassword()));
+         auth = authenticationManager.authenticate( new UsernamePasswordAuthenticationToken(request.getEmail(), request.getPassword()));
+            SecurityContextHolder.getContext().setAuthentication(auth);
+            log.info("Authenticated -> {} ",auth.getName());
+            log.info("Authenticated -> {} ",auth.getAuthorities());
 
-            log.info("Authenticated");
         } catch (AuthenticationException e) {
             throw new BadCredentialsException("Bad Credentials");
         }
-
-        User user=null;
-        try {
-            user = userRepository.findByEmail(request.getEmail())
-                    .orElseThrow();
-
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-            throw new UserNotFoundException("User not found!");
-        }
+        User user = (User) auth.getPrincipal();
         String jwtToken = jwtService.generateToken(user, user.getRole());
+        response.setHeader("Authorization", jwtToken);
         return GeneratedToken.builder()
                 .token(jwtToken).role(user.getRole())
                 .build();

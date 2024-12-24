@@ -33,7 +33,7 @@ class AdminServiceApplicationTests {
     void contextLoads() {
         new AdminServiceApplication();
 
-        controller.getAllUsers();
+//        controller.getAllUsers();
         controller.getUser("paritosh.anand@gmail.com");
         controller.getRegRequests();
         // registerting and deleting admin

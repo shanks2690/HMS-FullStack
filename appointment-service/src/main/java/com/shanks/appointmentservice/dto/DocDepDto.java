@@ -3,12 +3,14 @@ package com.shanks.appointmentservice.dto;
 import com.shanks.appointmentservice.entity.enums.BranchCode;
 import com.shanks.appointmentservice.entity.enums.Department;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
+@Builder
 public class DocDepDto {
     private int docId;
     private String firstname;
@@ -19,5 +21,6 @@ public class DocDepDto {
     private String Qualification;
     private BranchCode branchCode;
     private Boolean availability;
+    private String message;
 }
 

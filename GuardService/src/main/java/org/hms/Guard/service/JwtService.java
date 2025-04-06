@@ -12,7 +12,10 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
+import javax.crypto.KeyGenerator;
+import javax.crypto.SecretKey;
 import java.security.Key;
+import java.security.NoSuchAlgorithmException;
 import java.time.LocalDate;
 import java.util.Base64;
 import java.util.Date;
@@ -67,7 +70,7 @@ public class JwtService {
                 .claim("Role", role.toString())
                 .setSubject(userDetails.getUsername())
                 .setIssuedAt(new Date(System.currentTimeMillis()))
-                .setExpiration(new Date(System.currentTimeMillis() + 1000 * 60 * 24))
+                .setExpiration(new Date(System.currentTimeMillis() + 1000 * 60 * 30))
                 .signWith(getSigningKey(), SignatureAlgorithm.HS256)
                 .compact();
     }
@@ -83,7 +86,17 @@ public class JwtService {
     }
 
     private Key getSigningKey() {
-        byte[] keyBytes = Base64.getDecoder().decode(SECRET_KEY);
+        byte[] keyBytes = Base64.getDecoder().decode(generateSecretKey());
         return Keys.hmacShaKeyFor(keyBytes);
+    }
+    private String generateSecretKey() {
+        KeyGenerator keyGenerator ;
+        try {
+            keyGenerator = KeyGenerator.getInstance("HmacSHA256");
+        } catch (NoSuchAlgorithmException e) {
+            throw new RuntimeException(e);
+        }
+        SecretKey secretKey = keyGenerator.generateKey();
+        return Base64.getEncoder().encodeToString(secretKey.getEncoded());
     }
 }

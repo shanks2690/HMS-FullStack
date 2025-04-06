@@ -22,7 +22,7 @@ import java.util.List;
 //@Entity
 //@Table(name = "User")
 @Document(collection = "User")
-public class User implements UserDetails {
+public class User implements UserDetails  {
     private String email;
 //    @GeneratedValue(strategy = GenerationType.AUTO)
 //    private Integer id;

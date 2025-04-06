@@ -20,6 +20,7 @@ import org.hms.Guard.kafka.Sender;
 import org.hms.Guard.mapper.UserMapper;
 import org.hms.Guard.repository.UserRepository;
 import org.hms.Guard.service.JwtService;
+import org.springframework.cloud.config.environment.Environment;
 import org.springframework.context.annotation.Bean;
 import org.springframework.lang.NonNull;
 import org.springframework.security.authentication.AuthenticationManager;

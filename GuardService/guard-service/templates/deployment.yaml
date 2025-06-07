@@ -46,12 +46,12 @@ spec:
               value: mongodb://admin:password@mongo-db:27017/
             - name: SPRING_DATA_MONGODB_DATABASE
               value: Guard_DB
-{{/*            - name: SPRING_CONFIG_IMPORT*/}}
-{{/*              value: optional:configserver:http://config-server:8888/*/}}
             - name: SPRING_PROFILES_ACTIVE
               value: k8
             - name: SPRING_KAFKA_BOOTSTRAP_SERVERS
               value: kafka:9092
+            - name: LOGGING_LEVEL_ROOT
+              value: "DEBUG"
           args:
             - "--spring.config.import=optional:configserver:http://config-server:8888/"
             - "--spring.kafka.producer.bootstrap-servers=kafka:9092"

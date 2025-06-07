@@ -10,12 +10,15 @@ spring:
     import: optional:configserver:http://config-server:8888/
 
 #  API gateway properties
+
+
   cloud:
     gateway:
       discovery:
         locator:
-          enabled: true  # <--- MISSING MOST OFTEN
-          lower-case-service-id: true
+          enabled: true
+          strip-prefix: false
+
       routes:
         - id: DOCTOR
           uri: lb://DOCTOR
@@ -92,7 +95,7 @@ spring:
         corsConfigurations:
           '[/**]':
             allowedOrigins:
-              - "http://localhost:3000" # Remove "*"
+              - "http://localhost:3000"
             allowedMethods:
               - GET
               - POST

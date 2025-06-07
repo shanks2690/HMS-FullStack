@@ -33,6 +33,7 @@ public class AuthenticationFilter extends AbstractGatewayFilterFactory<Authentic
     public GatewayFilter apply(Config config) {
         return ((exchange, chain) -> {
             ServerHttpRequest request = null;
+            log.info("The uri is  {}",exchange.getRequest().getURI().getPath());
             if (validator.isSecured.test(exchange.getRequest())) {
                 //header contains token or not
                 if (!exchange.getRequest().getHeaders().containsKey(HttpHeaders.AUTHORIZATION)) {

@@ -49,6 +49,8 @@ spec:
               value: k8
             - name: SPRING_APPLICATION_NAME
               value: API-GATEWAY
+            - name: LOGGING_LEVEL_ROOT
+              value: INFO
           args:
               - "--spring.config.import=optional:configserver:http://config-server:8888/"
           ports:

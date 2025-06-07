@@ -31,7 +31,7 @@ public class SecurityConfig {
                 // TODO // Will allow only https requests if requiresSecure and http if requiresInsecure(). If above setting not done then both will be accepted
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(request ->
-                        request.requestMatchers( "/guard/authenticate")
+                        request.requestMatchers( "/guard/authenticate", "guard/register")
                                 .permitAll()
                                 .anyRequest()
                                 .authenticated()

@@ -77,15 +77,20 @@ public class AuthenticationService  {
         return UserMapper.userToCreddto(user);
     }
 
-    private void sendToken(RegistrationCredentials reg) throws JsonProcessingException {
+    private void sendToken(RegistrationCredentials reg)  {
         CredToken credToken = new CredToken();
         credToken.setEmail(reg.getEmail());
         credToken.setFirstname(reg.getFirstname());
         credToken.setLastname(reg.getLastname());
         credToken.setRole(reg.getRole().toUpperCase());
 
-        if (credToken.getRole().equalsIgnoreCase("PATIENT"))
-            sender.sendToPat(objectMapper.writeValueAsString(credToken));
+        if (credToken.getRole().equalsIgnoreCase("PATIENT")) {
+            try {
+                sender.sendToPat(objectMapper.writeValueAsString(credToken));
+            } catch (JsonProcessingException e) {
+                log.error("Kafka send errored out {} ", e.getMessage());
+            }
+        }
         log.info(credToken);
     }
 

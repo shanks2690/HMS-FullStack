@@ -1,6 +1,7 @@
 package org.hms.Guard.contoller;
 
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -29,7 +30,7 @@ public class AuthenticationController {
     private CRUDService crudService;
 
     @PostMapping("register")
-    public ResponseEntity<?> register(@RequestBody RegistrationCredentials request) {
+    public ResponseEntity<?> register(@RequestBody RegistrationCredentials request) throws JsonProcessingException {
         System.out.println("Entered here");
         return ResponseEntity.ok(service.register(request));
     }

@@ -1,9 +1,10 @@
 package org.hms.Guard.service;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
-import org.hms.CredToken;
 import org.hms.Guard.auth.Credentials;
 import org.hms.Guard.auth.GeneratedToken;
 import org.hms.Guard.auth.RegistrationCredentials;
@@ -46,7 +47,8 @@ public class AuthenticationService  {
     private final AuthenticationManager authenticationManager;
     private final MailFeign mailFeign;
     private final HttpServletResponse response;
-    public CredentialsDto register(RegistrationCredentials request) {
+    private final ObjectMapper objectMapper;
+    public CredentialsDto register(RegistrationCredentials request) throws JsonProcessingException {
         User user = User.builder()
                 .firstName(request.getFirstname())
                 .lastName(request.getLastname())
@@ -75,7 +77,7 @@ public class AuthenticationService  {
         return UserMapper.userToCreddto(user);
     }
 
-    private void sendToken(RegistrationCredentials reg) {
+    private void sendToken(RegistrationCredentials reg) throws JsonProcessingException {
         CredToken credToken = new CredToken();
         credToken.setEmail(reg.getEmail());
         credToken.setFirstname(reg.getFirstname());
@@ -83,7 +85,7 @@ public class AuthenticationService  {
         credToken.setRole(reg.getRole().toUpperCase());
 
         if (credToken.getRole().equalsIgnoreCase("PATIENT"))
-            sender.sendToPat(credToken);
+            sender.sendToPat(objectMapper.writeValueAsString(credToken));
         log.info(credToken);
     }
 

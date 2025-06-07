@@ -1,0 +1,91 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "guard-service.fullname" . }}
+  labels:
+    {{- include "guard-service.labels" . | nindent 4 }}
+spec:
+  {{- if not .Values.autoscaling.enabled }}
+  replicas: {{ .Values.replicaCount }}
+  {{- end }}
+  selector:
+    matchLabels:
+      {{- include "guard-service.selectorLabels" . | nindent 6 }}
+  template:
+    metadata:
+      {{- with .Values.podAnnotations }}
+      annotations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      labels:
+        {{- include "guard-service.labels" . | nindent 8 }}
+        {{- with .Values.podLabels }}
+        {{- toYaml . | nindent 8 }}
+        {{- end }}
+    spec:
+{{/*      {{- with .Values.imagePullSecrets }}*/}}
+{{/*      imagePullSecrets:*/}}
+{{/*        {{- toYaml . | nindent 8 }}*/}}
+{{/*      {{- end }}*/}}
+{{/*      serviceAccountName: {{ include "guard-service.serviceAccountName" . }}*/}}
+{{/*      {{- with .Values.podSecurityContext }}*/}}
+{{/*      securityContext:*/}}
+{{/*        {{- toYaml . | nindent 8 }}*/}}
+{{/*      {{- end }}*/}}
+      containers:
+        - name: {{ .Chart.Name }}
+{{/*          {{- with .Values.securityContext }}*/}}
+{{/*          securityContext:*/}}
+{{/*            {{- toYaml . | nindent 12 }}*/}}
+{{/*          {{- end }}*/}}
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
+          env:
+{{/*            - name: EUREKA_CLIENT_SERVICEURL_DEFAULTZONE*/}}
+{{/*              value: http://{{ .Values.eureka }}:8761/eureka/*/}}
+            - name: SPRING_DATA_MONGODB_URI
+              value: mongodb://admin:password@mongo-db:27017/
+            - name: SPRING_DATA_MONGODB_DATABASE
+              value: Guard_DB
+{{/*            - name: SPRING_CONFIG_IMPORT*/}}
+{{/*              value: optional:configserver:http://config-server:8888/*/}}
+            - name: SPRING_PROFILES_ACTIVE
+              value: k8
+          args:
+            - "--spring.config.import=optional:configserver:http://config-server:8888/"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          ports:
+            - name: http
+              containerPort: {{ .Values.service.port }}
+              protocol: TCP
+{{/*          {{- with .Values.livenessProbe }}*/}}
+{{/*          livenessProbe:*/}}
+{{/*            {{- toYaml . | nindent 12 }}*/}}
+{{/*          {{- end }}*/}}
+{{/*          {{- with .Values.readinessProbe }}*/}}
+{{/*          readinessProbe:*/}}
+{{/*            {{- toYaml . | nindent 12 }}*/}}
+{{/*          {{- end }}*/}}
+{{/*          {{- with .Values.resources }}*/}}
+{{/*          resources:*/}}
+{{/*            {{- toYaml . | nindent 12 }}*/}}
+{{/*          {{- end }}*/}}
+{{/*          {{- with .Values.volumeMounts }}*/}}
+{{/*          volumeMounts:*/}}
+{{/*            {{- toYaml . | nindent 12 }}*/}}
+{{/*          {{- end }}*/}}
+{{/*      {{- with .Values.volumes }}*/}}
+{{/*      volumes:*/}}
+{{/*        {{- toYaml . | nindent 8 }}*/}}
+{{/*      {{- end }}*/}}
+{{/*      {{- with .Values.nodeSelector }}*/}}
+{{/*      nodeSelector:*/}}
+{{/*        {{- toYaml . | nindent 8 }}*/}}
+{{/*      {{- end }}*/}}
+{{/*      {{- with .Values.affinity }}*/}}
+{{/*      affinity:*/}}
+{{/*        {{- toYaml . | nindent 8 }}*/}}
+{{/*      {{- end }}*/}}
+{{/*      {{- with .Values.tolerations }}*/}}
+{{/*      tolerations:*/}}
+{{/*        {{- toYaml . | nindent 8 }}*/}}
+{{/*      {{- end }}*/}}

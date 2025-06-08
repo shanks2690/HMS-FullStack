@@ -1,16 +1,16 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{ include "guard-service.fullname" . }}
+  name: {{ include "admin-service.fullname" . }}
   labels:
-    {{- include "guard-service.labels" . | nindent 4 }}
+    {{- include "admin-service.labels" . | nindent 4 }}
 spec:
   {{- if not .Values.autoscaling.enabled }}
   replicas: {{ .Values.replicaCount }}
   {{- end }}
   selector:
     matchLabels:
-      {{- include "guard-service.selectorLabels" . | nindent 6 }}
+      {{- include "admin-service.selectorLabels" . | nindent 6 }}
   template:
     metadata:
       {{- with .Values.podAnnotations }}
@@ -18,7 +18,7 @@ spec:
         {{- toYaml . | nindent 8 }}
       {{- end }}
       labels:
-        {{- include "guard-service.labels" . | nindent 8 }}
+        {{- include "admin-service.labels" . | nindent 8 }}
         {{- with .Values.podLabels }}
         {{- toYaml . | nindent 8 }}
         {{- end }}
@@ -27,21 +27,21 @@ spec:
 {{/*      imagePullSecrets:*/}}
 {{/*        {{- toYaml . | nindent 8 }}*/}}
 {{/*      {{- end }}*/}}
-{{/*      serviceAccountName: {{ include "guard-service.serviceAccountName" . }}*/}}
+{{/*      serviceAccountName: {{ include "admin-service.serviceAccountName" . }}*/}}
 {{/*      {{- with .Values.podSecurityContext }}*/}}
 {{/*      securityContext:*/}}
 {{/*        {{- toYaml . | nindent 8 }}*/}}
 {{/*      {{- end }}*/}}
       containers:
         - name: {{ .Chart.Name }}
-{{/*          {{- with .Values.securityContext }}*/}}
-{{/*          securityContext:*/}}
-{{/*            {{- toYaml . | nindent 12 }}*/}}
-{{/*          {{- end }}*/}}
-          image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
+          args:
+            - "--spring.config.import=optional:configserver:http://config-server:8888/"
+            - "--spring.kafka.producer.bootstrap-servers=kafka:9092"
+            - "--eureka.client.fetch-registry=true"
+            - "--eureka.client.register-with-eureka=true"
+            - "--eureka.client.service-url.defaultZone=http://eureka-server:8761/eureka/"
+            - "--eureka.instance.prefer-ip-address=true"
           env:
-{{/*            - name: EUREKA_CLIENT_SERVICEURL_DEFAULTZONE*/}}
-{{/*              value: http://{{ .Values.eureka }}:8761/eureka/*/}}
             - name: SPRING_DATA_MONGODB_URI
               value: mongodb://admin:password@mongo-db:27017/
             - name: SPRING_DATA_MONGODB_DATABASE
@@ -50,9 +50,11 @@ spec:
               value: k8
             - name: SPRING_KAFKA_BOOTSTRAP_SERVERS
               value: kafka:9092
-          args:
-            - "--spring.config.import=optional:configserver:http://config-server:8888/"
-            - "--spring.kafka.producer.bootstrap-servers=kafka:9092"
+{{/*          {{- with .Values.securityContext }}*/}}
+{{/*          securityContext:*/}}
+{{/*            {{- toYaml . | nindent 12 }}*/}}
+{{/*          {{- end }}*/}}
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           ports:
             - name: http

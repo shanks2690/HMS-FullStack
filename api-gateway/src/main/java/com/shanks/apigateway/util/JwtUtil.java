@@ -19,6 +19,9 @@ public class JwtUtil {
 
 
     public void validateToken(final String token) {
+        log.info("Validating token: {}", token);
+//        Key signingKey = getSignKey();
+//        log.info("Signing key: {}", signingKey);
         Jwts.parserBuilder().setSigningKey(getSignKey()).build().parseClaimsJws(token);
     }
     public String extractUsername(String token) {

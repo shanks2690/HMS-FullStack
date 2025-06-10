@@ -3,6 +3,7 @@ package org.hms.Guard.service;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
+import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
 import jakarta.servlet.http.HttpServletResponse;
 import org.bson.codecs.DateCodec;
@@ -14,6 +15,7 @@ import org.springframework.stereotype.Service;
 
 import javax.crypto.KeyGenerator;
 import javax.crypto.SecretKey;
+import java.nio.charset.StandardCharsets;
 import java.security.Key;
 import java.security.NoSuchAlgorithmException;
 import java.time.LocalDate;
@@ -85,11 +87,19 @@ public class JwtService {
         return extractExpiration(token).before(new Date(System.currentTimeMillis()));
     }
 
+
     private Key getSigningKey() {
-        byte[] keyBytes = Base64.getDecoder().decode(generateSecretKey());
+        byte[] keyBytes = Decoders.BASE64.decode(SECRET_KEY);
         return Keys.hmacShaKeyFor(keyBytes);
     }
-    private String generateSecretKey() {
+
+
+    //    private Key getSigningKey() {
+//        byte[] keyBytes = Base64.getDecoder().decode(generateSecretKey());
+//        return Keys.hmacShaKeyFor(keyBytes);
+//    }
+
+    String generateSecretKey() {
         KeyGenerator keyGenerator ;
         try {
             keyGenerator = KeyGenerator.getInstance("HmacSHA256");

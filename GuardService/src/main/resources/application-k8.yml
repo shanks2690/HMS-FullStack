@@ -16,3 +16,6 @@ eureka:
       defaultZone: http://eureka-server:8761/eureka/
   instance:
     prefer-ip-address: true
+
+secrets:
+  jwt-secret-key: YYwzirRgOIRLejdymwtcw1IyWlYGVd5sfeIT3807hfPyVTFBqjVIBI7PatO8DLXt

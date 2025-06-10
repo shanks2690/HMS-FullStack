@@ -1,5 +1,6 @@
 package org.hms.adminservice.feigncalls;
 
+import org.hms.adminservice.config.FeignConfig;
 import org.hms.adminservice.dto.CredentialsDto;
 import org.hms.adminservice.dto.RegistrationCredentials;
 import org.springframework.cloud.openfeign.FeignClient;
@@ -8,14 +9,13 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 
-@FeignClient(name="GUARD")
+@FeignClient(name="GUARD" , configuration = FeignConfig.class)
 public interface GuardFeign {
     @PostMapping("guard/register")
      ResponseEntity<CredentialsDto> register( RegistrationCredentials request );
 
     @GetMapping("guard/allusers") // access with admin
-     ResponseEntity<List<CredentialsDto>> fetchAll(@RequestHeader("Authorization") String authorization);
-
+     ResponseEntity<List<CredentialsDto>> fetchAll();
 
     @DeleteMapping("guard/del")   // access with admin
     ResponseEntity<String> delAccount(@RequestBody String userName);

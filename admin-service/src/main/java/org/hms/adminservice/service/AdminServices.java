@@ -13,6 +13,6 @@ public interface AdminServices {
     public ResponseEntity<String> delUser(String userName);
     public ResponseEntity<RegistrationCredentials> updateUser(String userName);
 
-     ResponseEntity<List<CredentialsDto>> getAllUsers(String authorization);
+     ResponseEntity<List<CredentialsDto>> getAllUsers();
 
 }

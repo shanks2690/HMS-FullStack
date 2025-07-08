@@ -3,6 +3,7 @@ package org.hms.Guard.service;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
+import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
 import jakarta.servlet.http.HttpServletResponse;
 import org.bson.codecs.DateCodec;
@@ -12,7 +13,11 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
+import javax.crypto.KeyGenerator;
+import javax.crypto.SecretKey;
+import java.nio.charset.StandardCharsets;
 import java.security.Key;
+import java.security.NoSuchAlgorithmException;
 import java.time.LocalDate;
 import java.util.Base64;
 import java.util.Date;
@@ -67,7 +72,7 @@ public class JwtService {
                 .claim("Role", role.toString())
                 .setSubject(userDetails.getUsername())
                 .setIssuedAt(new Date(System.currentTimeMillis()))
-                .setExpiration(new Date(System.currentTimeMillis() + 1000 * 60 * 24))
+                .setExpiration(new Date(System.currentTimeMillis() + 1000 * 60 * 30))
                 .signWith(getSigningKey(), SignatureAlgorithm.HS256)
                 .compact();
     }
@@ -82,8 +87,26 @@ public class JwtService {
         return extractExpiration(token).before(new Date(System.currentTimeMillis()));
     }
 
+
     private Key getSigningKey() {
-        byte[] keyBytes = Base64.getDecoder().decode(SECRET_KEY);
+        byte[] keyBytes = Decoders.BASE64.decode(SECRET_KEY);
         return Keys.hmacShaKeyFor(keyBytes);
+    }
+
+
+    //    private Key getSigningKey() {
+//        byte[] keyBytes = Base64.getDecoder().decode(generateSecretKey());
+//        return Keys.hmacShaKeyFor(keyBytes);
+//    }
+
+    String generateSecretKey() {
+        KeyGenerator keyGenerator ;
+        try {
+            keyGenerator = KeyGenerator.getInstance("HmacSHA256");
+        } catch (NoSuchAlgorithmException e) {
+            throw new RuntimeException(e);
+        }
+        SecretKey secretKey = keyGenerator.generateKey();
+        return Base64.getEncoder().encodeToString(secretKey.getEncoded());
     }
 }

@@ -1,7 +1,8 @@
 package org.hms.adminservice.mapper;
 
-import org.hms.CredToken;
+
 import org.hms.adminservice.document.RegDoc;
+import org.hms.adminservice.dto.CredToken;
 import org.hms.adminservice.dto.CredentialsDto;
 
 

@@ -1,6 +1,7 @@
 package org.hms.Guard.contoller;
 
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -13,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseCookie;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.Duration;
@@ -27,9 +29,8 @@ public class AuthenticationController {
     @Autowired
     private CRUDService crudService;
 
-
     @PostMapping("register")
-    public ResponseEntity<?> register(@RequestBody RegistrationCredentials request) {
+    public ResponseEntity<?> register(@RequestBody RegistrationCredentials request) throws JsonProcessingException {
         System.out.println("Entered here");
         return ResponseEntity.ok(service.register(request));
     }
@@ -41,6 +42,8 @@ public class AuthenticationController {
 
     }
 
+
+    @PreAuthorize("hasAuthority('ADMIN')")
     @GetMapping("allusers") // access with admin
     public ResponseEntity<List<CredentialsDto>> fetchAll(@RequestHeader HttpHeaders headers) {
         log.info("Entered here {}", headers.get("Authorization"));
@@ -54,7 +57,7 @@ public class AuthenticationController {
     }
 
     @DeleteMapping("del")   // access with admin
-    public ResponseEntity<String> delAccount(@RequestBody String userName) {
+    public ResponseEntity<String> delAccount(@RequestBody  String userName) {
 
         System.out.println("Delete request received");
         return ResponseEntity.ok(crudService.delAccount(userName));

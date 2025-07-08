@@ -1,9 +1,10 @@
 package org.hms.Guard.service;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
-import org.hms.CredToken;
 import org.hms.Guard.auth.Credentials;
 import org.hms.Guard.auth.GeneratedToken;
 import org.hms.Guard.auth.RegistrationCredentials;
@@ -20,6 +21,7 @@ import org.hms.Guard.kafka.Sender;
 import org.hms.Guard.mapper.UserMapper;
 import org.hms.Guard.repository.UserRepository;
 import org.hms.Guard.service.JwtService;
+import org.springframework.cloud.config.environment.Environment;
 import org.springframework.context.annotation.Bean;
 import org.springframework.lang.NonNull;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -45,7 +47,8 @@ public class AuthenticationService  {
     private final AuthenticationManager authenticationManager;
     private final MailFeign mailFeign;
     private final HttpServletResponse response;
-    public CredentialsDto register(RegistrationCredentials request) {
+    private final ObjectMapper objectMapper;
+    public CredentialsDto register(RegistrationCredentials request) throws JsonProcessingException {
         User user = User.builder()
                 .firstName(request.getFirstname())
                 .lastName(request.getLastname())
@@ -74,15 +77,20 @@ public class AuthenticationService  {
         return UserMapper.userToCreddto(user);
     }
 
-    private void sendToken(RegistrationCredentials reg) {
+    private void sendToken(RegistrationCredentials reg)  {
         CredToken credToken = new CredToken();
         credToken.setEmail(reg.getEmail());
         credToken.setFirstname(reg.getFirstname());
         credToken.setLastname(reg.getLastname());
         credToken.setRole(reg.getRole().toUpperCase());
 
-        if (credToken.getRole().equalsIgnoreCase("PATIENT"))
-            sender.sendToPat(credToken);
+        if (credToken.getRole().equalsIgnoreCase("PATIENT")) {
+            try {
+                sender.sendToPat(objectMapper.writeValueAsString(credToken));
+            } catch (JsonProcessingException e) {
+                log.error("Kafka send errored out {} ", e.getMessage());
+            }
+        }
         log.info(credToken);
     }
 

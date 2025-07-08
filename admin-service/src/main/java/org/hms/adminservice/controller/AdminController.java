@@ -49,7 +49,7 @@ public class AdminController {
     @GetMapping("allusers")
     public ResponseEntity<List<CredentialsDto>> getAllUsers(@RequestHeader("Authorization") String authorization) {
         log.info("Auth {}", authorization);
-        return admin.getAllUsers(authorization);
+        return admin.getAllUsers();
     }
 
     @PostMapping("user")

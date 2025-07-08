@@ -33,6 +33,7 @@ public class AuthenticationFilter extends AbstractGatewayFilterFactory<Authentic
     public GatewayFilter apply(Config config) {
         return ((exchange, chain) -> {
             ServerHttpRequest request = null;
+            log.info("The uri is  {}",exchange.getRequest().getURI().getPath());
             if (validator.isSecured.test(exchange.getRequest())) {
                 //header contains token or not
                 if (!exchange.getRequest().getHeaders().containsKey(HttpHeaders.AUTHORIZATION)) {
@@ -45,24 +46,22 @@ public class AuthenticationFilter extends AbstractGatewayFilterFactory<Authentic
                 }
                 try {
                     jwtUtil.validateToken(token);
-                  String role;
+                    log.info("Valid token");
+                    String role;
                     String path=exchange.getRequest().getPath().toString();
-                    System.out.println(path);
+                    log.info("Path is {}",path);
 
-                role=  jwtUtil.extractRole(token);
-
-                    log.info(exchange.getRequest().getPath());
-
+                    role=  jwtUtil.extractRole(token);
+                    log.info("Role is {}",role);
 
                 if(path.charAt(path.length()-1)=='/');   // the  following check will not be carried out in case  path has / in the end as it is an invalid path and let the logic in the other part of the program handle it
                     else if(!chkAuthorization(role,path))
-                            throw new Exception();
+                            throw new Exception("Some problem in the authorization");
 
-
-  request =exchange.getRequest().mutate().header("loggedInUser", jwtUtil.extractUsername(token)).build();
-log.info(request.getHeaders());
+            request =exchange.getRequest().mutate().header("loggedInUser", jwtUtil.extractUsername(token)).build();
+             log.info("Request headers {}",request.getHeaders());
                 } catch (Exception e) {
-                    System.out.println("invalid access...!");
+                    log.error("invalid access...! \n {}",  e.getMessage());
                     throw new RuntimeException("un authorized access to application");
                 }
             }
@@ -71,7 +70,7 @@ log.info(request.getHeaders());
     }
 
     private boolean chkAuthorization(String role, String path) {
-
+        log.info("Checking auth with {} and {}",role,path);
         String admin = "^/admin(?:/[\\w\\d]+)?$";
         String pat = "^/pat(?:/[\\w\\d]+)?$";
         String mail = "^/mail(?:/[\\w\\d]+)?$";

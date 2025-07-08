@@ -33,8 +33,8 @@ return guardFeign.delAccount(userName);
     }
 
     @Override
-    public ResponseEntity<List<CredentialsDto>> getAllUsers(String authHeader) {
-        return guardFeign.fetchAll(authHeader);
+    public ResponseEntity<List<CredentialsDto>> getAllUsers() {
+        return guardFeign.fetchAll();
     }
 
 }

@@ -7,7 +7,7 @@ import org.springframework.security.config.annotation.method.configuration.Enabl
 
 @SpringBootApplication
 @EnableFeignClients
-
+@EnableMethodSecurity
 public class GuardStart {
 
 	public static void main(String[] args) {

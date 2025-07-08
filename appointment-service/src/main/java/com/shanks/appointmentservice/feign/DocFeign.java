@@ -6,8 +6,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 
 import java.util.List;
 
-@FeignClient(name="DOCTOR")
+
+@FeignClient(name="DOCTOR", url = "http://localhost:8081",fallback = ExternalServiceFallback.class)
 public interface DocFeign {
     @GetMapping("doc/alldocs")
-    public List<DocDepDto> getAllDocs();
+    List<DocDepDto> getAllDocs();
 }

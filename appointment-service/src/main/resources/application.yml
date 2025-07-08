@@ -1,4 +1,18 @@
 spring:
   application:
     name: APPOINTMENT
-
+  graphql:
+    graphiql:
+      enabled: true
+feign:
+  circuitbreaker:
+    enabled: true
+resilience4j:
+  circuitbreaker:
+    instances:
+      DOCTOR:
+        sliding-window-size: 10
+        failure-rate-threshold: 50
+        wait-duration-in-open-state: 5000ms
+        permitted-number-of-calls-in-half-open-state: 2
+        register-health-indicator: true

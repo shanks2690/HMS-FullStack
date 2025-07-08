@@ -11,6 +11,7 @@ import org.springframework.context.annotation.Configuration;
 @SpringBootApplication
 @EnableFeignClients
 @Configuration
+
 public class AppointmentServiceApplication {
 
 	public static void main(String[] args) {

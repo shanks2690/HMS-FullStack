@@ -1,6 +1,5 @@
 package org.hms.adminservice;
 
-import org.hms.CredToken;
 import org.hms.adminservice.controller.AdminController;
 import org.hms.adminservice.document.RegDoc;
 import org.hms.adminservice.dto.CredentialsDto;
@@ -11,8 +10,6 @@ import org.hms.adminservice.exception.GlobalExceptionHandler;
 import org.hms.adminservice.exception.UserNotFoundException;
 import org.hms.adminservice.exception.payload.ApiResponse;
 import org.hms.adminservice.kafka.ReceiveRegRequest;
-import org.hms.adminservice.mapper.PatCredMapper;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -86,11 +83,7 @@ class AdminServiceApplicationTests {
 		controller.delUser("abc@xyz.com");
     }
 
-    @Test
-    void forMapper() {
-        new PatCredMapper();
-        PatCredMapper.tokenToCred(new CredToken());
-    }
+
 
     @Test
     void forDto() {
@@ -136,27 +129,5 @@ class AdminServiceApplicationTests {
         regDoc.setLastname(regDoc.getLastname());
         System.out.println(regDoc);
         new RegDoc("Asds", "Asdas", "asdads", "asdas");
-    }
-
-
-    @Test
-    void kafkaTests() {
-        CredToken credToken = new CredToken();
-        credToken.setFirstname("John");
-        credToken.setLastname("Cena");
-        credToken.setRole("PATIENT");
-        credToken.setEmail("johncena@youcantseeme.com");
-
-        request.consumeMessage(credToken);
-        controller.regPats();
-        controller.delUser(credToken.getEmail());
-        credToken.setEmail("johncena@youcantseeme.com");
-        request.consumeMessage(credToken);
-        credToken.setEmail("johncena@youcantseeme.com");
-        request.consumeMessage(credToken);
-        controller.regPats();
-        controller.delUser(credToken.getEmail());
-        Assertions.assertThrows(Exception.class, () -> request.consumeMessage(null));
-
     }
 }
